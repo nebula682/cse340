@@ -40,7 +40,7 @@ main {
 
 
 .navbar {
-  background-color: #066b96;
+  background-color: #0b90c8;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -133,11 +133,14 @@ main {
   background-color: white;
   color: black;
   max-width: 1200px;
+  
   margin: 20px auto;
   padding: 20px;
   border-radius: 10px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
 }
+
+
 
 .hero-text {
   position: relative;
@@ -187,7 +190,7 @@ main {
 }
 
 .upgrade-item {
-  background-color: #066b96; 
+  background-color: #0b90c8; 
   padding: 10px;
   border-radius: 10px;
   text-align: center;
@@ -225,11 +228,11 @@ main {
 @media (min-width: 768px) {
   .left-section,
   .right-section {
-    width: 50%;
+    width: auto;
   }
 
   .upgrades img {
-    width: 50%;
+    width: auto;
   }
 }
 
@@ -284,7 +287,7 @@ main {
 
 .side-card button {
   padding: 8px 12px;
-  background-color: #066b96;
+  background-color: #0b90c8;
   color: white;
   border: none;
   border-radius: 5px;
@@ -295,6 +298,74 @@ main {
 .side-card button:hover {
   background-color: #054a68;
 }
+
+
+
+
+/*.upgrades {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 15px;
+  margin-top: 10px;
+}
+
+
+.upgrade-item {
+  background-color: #066b96;
+  padding: 16px;
+  border-radius: 10px;
+  text-align: center;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  height: auto; /* allow dynamic height *
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  transition: transform 0.3s ease;
+}
+
+.upgrade-item img {
+  width: 100%;
+  height: auto;
+  max-height: 120px;
+  object-fit: contain;
+  margin-bottom: 10px;
+}
+
+.upgrade-title {
+  font-size: 1rem;
+  font-weight: bold;
+  color: white;
+  text-align: center;
+}
+
+.upgrade-title {
+  font-size: 1rem;
+  font-weight: bold;
+  color: white;
+  text-align: center;
+}
+
+@media (max-width: 600px) {
+  .upgrades {
+    grid-template-columns: 1fr !important;
+    gap: 10px;
+  }
+
+  .upgrade-item {
+    padding: 10px;
+  }
+
+  .upgrade-item img {
+    max-height: 80px;
+    width: 100%;
+    object-fit: contain;
+  }
+
+  .upgrade-title {
+    font-size: 0.85rem;
+  }
+}*/
 
 
 
