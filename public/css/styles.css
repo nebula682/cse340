@@ -40,7 +40,7 @@ main {
 
 
 .navbar {
-  background-color: #0b90c8;
+  background-color: #04435d;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -126,7 +126,7 @@ main {
   font-weight: bold;
   font-size: 0.95rem;
   color: #22078f;
-  text-decoration: underline;
+  text-decoration: none;
 }
 
 .content-container {
@@ -187,10 +187,11 @@ main {
   grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
   gap: 15px;
   margin-top: 10px;
+  
 }
 
 .upgrade-item {
-  background-color: #0b90c8; 
+  background-color: #04435d; 
   padding: 10px;
   border-radius: 10px;
   text-align: center;
@@ -258,7 +259,7 @@ main {
   padding: 16px;
   border-radius: 10px;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-  color: #093b9f;
+  color: #04435d;
   text-align: center;
   display: flex;
   flex-direction: column;
@@ -277,7 +278,7 @@ main {
 .side-card h3 {
   margin-top: 0;
   font-size: 1.2rem;
-  color: #0a4b78;
+  color: #04435d;
 }
 
 .side-card p {
@@ -287,7 +288,7 @@ main {
 
 .side-card button {
   padding: 8px 12px;
-  background-color: #0b90c8;
+  background-color: #04435d;
   color: white;
   border: none;
   border-radius: 5px;
@@ -297,6 +298,10 @@ main {
 
 .side-card button:hover {
   background-color: #054a68;
+}
+
+footer{
+  color: yellow;
 }
 
 
