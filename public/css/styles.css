@@ -350,7 +350,8 @@ main {
 
 footer{
   footer p {
-    color: #aad8ff; /* Soft sky blue */
+    color:#00bcd4;
+    
   }
 }
 
@@ -385,6 +386,8 @@ footer{
     width: 90%;
   }
 }
+
+
 
 
 
