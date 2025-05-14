@@ -348,11 +348,13 @@ main {
   background-color: #054a68;
 }
 
-footer{
-  footer p {
-    color:#98640b;
+footer p{
+  
+    color: white;
+    background-color: black;
+    width: 200px;
     
-  }
+  
 }
 
 
