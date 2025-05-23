@@ -8,6 +8,15 @@ router.get("/type/:classificationId", invController.buildByClassificationId);
 
 
 
+
+
+// Add this route at the bottom
+//router.get("/detail/:inv_id", invController.buildByInventoryId)//
+
+
+
+
+
 module.exports = router;
 
 

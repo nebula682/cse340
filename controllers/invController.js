@@ -22,6 +22,24 @@ res.render("inventory/classification", {
 }
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
  module.exports = invCont
 
 
