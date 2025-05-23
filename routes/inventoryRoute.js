@@ -9,3 +9,16 @@ router.get("/type/:classificationId", invController.buildByClassificationId);
 
 
 module.exports = router;
+
+
+
+
+
+
+
+
+
+
+
+
+
