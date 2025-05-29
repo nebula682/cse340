@@ -1,0 +1,45 @@
+
+
+<main class="login-container">
+  <h1><%= title %></h1>
+
+  <% if (typeof message != "undefined") { %>
+    <div class="flash-message"><%= message %></div>
+  <% } %>
+
+
+  <% if (errors) { %>
+  <ul class="notice">
+ <% errors.array().forEach(error => { %>
+   <li><%= error.msg %></li>
+<%  }) %>
+ </ul>
+<% } %>
+
+
+  <form action="/account/register" method="post" class="auth-form">
+    <label for="firstname">First Name:</label>
+    <!--<input type="text" id="firstname" name="firstname" required value="<%= typeof firstname !== 'undefined' ? firstname : '' %>">-->
+<input type="text" name="account_firstname" id="accountFirstname" required value="<%= locals.account_firstname %>">
+    <label for="lastname">Last Name:</label>
+    <!--<input type="text" id="lastname" name="lastname" required value="<%= typeof lastname !== 'undefined' ? lastname : '' %>">-->
+    <input type="text" name="account_lastname" id="accountLastname" required value="<%= locals.account_lastname %>">
+
+    <label for="email">Email:</label>
+    <!--<input type="email" id="email" name="email" required value="<%= typeof email !== 'undefined' ? email : '' %>">-->
+    <input type="email" name="account_email" id="accountEmail" required value="<%= locals.account_email %>">
+
+    <label for="password">Password:</label>
+    <input type="password" id="password" name="password" required
+  pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\s).{12,}$"
+  title="Must be at least 12 characters, contain 1 uppercase letter, 1 number, and 1 special character.">
+    <small class="password-rules">
+  Password must be at least 12 characters and contain at least 1 uppercase letter, 1 number, and 1 special character.
+</small>
+
+    <button type="submit">Register</button>
+  </form>
+
+  
+</main>
+

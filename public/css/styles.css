@@ -630,6 +630,136 @@ footer p a{
 
 
 
+.flash.notice {
+  background-color: #e7f4ff;
+  border: 1px solid #7dc6f5;
+  padding: 10px;
+  color: #31708f;
+}
+
+.flash.error {
+  background-color: #f8d7da;
+  border: 1px solid #f5c6cb;
+  padding: 10px;
+  color: #721c24;
+}
+
+
+
+
+
+
+/* Login container override */
+.login-container {
+  max-width: 400px;
+  margin: 6rem auto; /* Push down below header */
+  padding: 2rem;
+  border: 1px solid #ccc;
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.1);
+  color: #000;
+}
+
+/* Remove or reduce global styling */
+main {
+  padding: 20px;
+}
+
+
+/* Hide hero if inside .login-container */
+.login-container ~ .hero {
+  display: none;
+}
+
+
+/* Login Container Styling */
+.login-container {
+  max-width: 400px;
+  margin: 6rem auto;
+  padding: 2.5rem;
+  background-color: #ffffff;
+  border-radius: 10px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+  font-family: 'Segoe UI', sans-serif;
+  color: #333;
+}
+
+/* Form and Inputs */
+.auth-form .form-group {
+  margin-bottom: 1.5rem;
+}
+
+.auth-form label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-weight: 600;
+  font-size: 0.95rem;
+}
+
+.auth-form input {
+  width: 100%;
+  padding: 0.75rem;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 0.95rem;
+  box-sizing: border-box;
+  transition: border 0.3s ease;
+}
+
+.auth-form input:focus {
+  border-color: #0077cc;
+  outline: none;
+}
+
+/* Button */
+.auth-form button {
+  width: 100%;
+  padding: 0.8rem;
+  background-color: #0077cc;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  font-weight: bold;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.auth-form button:hover {
+  background-color: #005fa3;
+}
+
+/* Footer link */
+.form-footer {
+  margin-top: 1.5rem;
+  text-align: center;
+  font-size: 0.9rem;
+}
+
+.form-footer a {
+  color: #0077cc;
+  text-decoration: none;
+}
+
+.form-footer a:hover {
+  text-decoration: underline;
+}
+
+/* Flash messages */
+.flash-message {
+  background-color: #fff3cd;
+  color: #856404;
+  padding: 1rem;
+  margin-bottom: 1.5rem;
+  border: 1px solid #ffeeba;
+  border-radius: 5px;
+}
+
+
+
+
+
 
 
 
