@@ -16,7 +16,8 @@ const utilities = require('./utilities');  // Adjust path if needed
 const expressLayouts = require("express-ejs-layouts")
 const env = require("dotenv").config()
 const app = express()
-const static = require("./routes/static")
+const path = require('path');
+const staticMiddleware = require("./routes/static")
 const baseController = require("./controllers/baseController")
 const inventoryRoute = require("./routes/inventoryRoute")
 
@@ -68,6 +69,16 @@ app.use(bodyParser.urlencoded({ extended: true })) // for parsing application/x-
 
 
 
+// Other middleware and routes
+
+// Error handling middleware
+app.use((err, req, res, next) => {
+  console.error(err.stack);
+  res.status(500).render('error', { message: 'Something went wrong!' });
+});
+
+
+
 
 /* ***********************
  * View Engine and Templates
@@ -77,10 +88,15 @@ app.use(expressLayouts)
 app.set("layout", "./layouts/layout") // not at views root
 
 
+
+
 /* ***********************
  * Routes
  *************************/
-app.use(static)
+
+//app.use('/static',staticMiddleware)//
+
+app.use(express.static(path.join(__dirname, "public")))
 
 /*Index route*/
 app.get("/", utilities.handleErrors(baseController.buildHome))
@@ -142,3 +158,6 @@ const host = process.env.HOST
 app.listen(port, () => {
   console.log(`app listening on ${host}:${port}`)
 })
+
+
+

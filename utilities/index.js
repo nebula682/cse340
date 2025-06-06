@@ -1,4 +1,4 @@
-const invModel = require("../models/inventory-model")
+const invModel = require("../models/inventoryModel")
 const Util = {}
 
 /* ************************
@@ -64,6 +64,35 @@ Util.buildClassificationGrid = async function(data){
 
 
 
+/*Util.buildClassificationGrid = async function(data) {
+  let grid
+  if (data.length > 0) {
+    grid = '<ul id="inv-display">'
+    data.forEach(vehicle => {
+      grid += '<li>'
+      grid += '<a href="/inv/detail/' + vehicle.inv_id + '" title="View ' + vehicle.inv_make + ' ' + vehicle.inv_model + ' details">'
+      grid += '<img src="' + vehicle.inv_thumbnail + '" alt="Image of ' + vehicle.inv_make + ' ' + vehicle.inv_model + ' on CSE Motors" />'
+      grid += '</a>'
+      grid += '<div class="namePrice">'
+      grid += '<hr />'
+      grid += '<h2>'
+      grid += '<a href="/inv/detail/' + vehicle.inv_id + '" title="View ' + vehicle.inv_make + ' ' + vehicle.inv_model + ' details">'
+      grid += vehicle.inv_make + ' ' + vehicle.inv_model
+      grid += '</a>'
+      grid += '</h2>'
+      grid += '<span>$' + new Intl.NumberFormat('en-US').format(vehicle.inv_price) + '</span>'
+      grid += '</div>'
+      grid += '</li>'
+    })
+    grid += '</ul>'
+  } else {
+    grid = '<p class="notice">Sorry, no matching vehicles could be found.</p>'
+  }
+  return grid
+}*/
+
+
+
 
 /* ****************************************
  * Middleware For Handling Errors
@@ -71,6 +100,30 @@ Util.buildClassificationGrid = async function(data){
  * General Error Handling
  **************************************** */
 Util.handleErrors = fn => (req, res, next) => Promise.resolve(fn(req, res, next)).catch(next)
+
+
+
+
+
+
+
+
+
+
+// utilities/index.js
+const buildVehicleDetailHtml = (vehicle) => {
+  return `
+    <div class="vehicle-detail">
+      <h2>${vehicle.make} ${vehicle.model} (${vehicle.year})</h2>
+      <img src="${vehicle.imageUrl}" alt="${vehicle.make} ${vehicle.model}" />
+      <p><strong>Price:</strong> $${vehicle.price.toLocaleString()}</p>
+      <p><strong>Mileage:</strong> ${vehicle.mileage.toLocaleString()} miles</p>
+      <p><strong>Description:</strong> ${vehicle.description}</p>
+    </div>
+  `;
+};
+
+//module.exports = { buildVehicleDetailHtml };//
 
 module.exports = Util
 

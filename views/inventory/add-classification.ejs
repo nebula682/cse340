@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Add Classification</title>
+  <script src="/js/formValidation.js" defer></script>
+  <link rel="stylesheet" href="/css/style.css" />
+</head>
+<body>
+  <h1>Add New Classification</h1>
+
+  <% if (flashMessage) { %>
+    <p class="flash"><%= flashMessage %></p>
+  <% } %>
+
+  <form action="/inv/add-classification" method="POST" onsubmit="return validateForm()">
+    <label for="classificationName">Classification Name:</label>
+    <input type="text" id="classificationName" name="classificationName" value="<%= oldInput.classificationName || '' %>" required />
+    
+
+    <span class="error"><%= errors.classificationName ? errors.classificationName.msg : '' %></span><br>
+
+    <button type="submit">Add Classification</button>
+  </form>
+
+  <a href="/inv">Back to Management</a>
+</body>
+</html>

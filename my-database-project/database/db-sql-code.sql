@@ -47,14 +47,6 @@ VALUES ('Custom'),
 ('Sedan');
 
 
-CREATE TABLE IF NOT EXISTS public.account (
-  account_id SERIAL PRIMARY KEY,
-  account_firstname VARCHAR NOT NULL,
-  account_lastname VARCHAR NOT NULL,
-  account_email VARCHAR UNIQUE NOT NULL,
-  account_password VARCHAR NOT NULL,
-  account_type public.account_type DEFAULT 'Client'  -- uses your ENUM
-);
 
 
 
