@@ -1,5 +1,6 @@
 const { validationResult } = require('express-validator');
 const classificationModel = require('../models/classificationModel');
+const utilities = require("../utilities/"); 
 
 /*exports.addClassificationView = (req, res) => {
     res.render('inventory/addClassification', {
@@ -25,17 +26,15 @@ const classificationModel = require('../models/classificationModel');
 /*exports.addClassificationView = (req, res) => {
   res.send("Yes! The route works.");
 };*/
-
-exports.addClassificationView = (req, res) => {
-  res.render('inventory/add-classification', {  // or 'classification/add-classification' if that’s your folder
-    oldInput: req.session.oldInput || {},
-    errors: req.session.errors || {},
-    flashMessage: req.session.flashMessage || ''
-  });
-  req.session.oldInput = null;
-  req.session.errors = null;
-  req.session.flashMessage = null;
-};
+exports.addClassificationView = async (req, res) => {
+  const nav = await utilities.getNav(); // Make sure nav is being built properly
+res.render("inventory/add-classification", {
+  title: "Add Classification", // ✅ Add this
+  nav,
+  oldInput: req.session.oldInput || {},
+  errors: req.session.errors || {},
+  flashMessage: req.session.flashMessage || ""
+});}
 
 exports.addClassification = async (req, res) => {
     req.session.oldInput = req.body;

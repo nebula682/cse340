@@ -1,0 +1,16 @@
+<%- include('../partials/header') %>
+<%- include('../partials/nav') %>
+
+<main>
+  <h1>Account Management</h1>
+
+  <% if (messages.notice) { %>
+    <div class="flash-message"><%= messages.notice %></div>
+  <% } %>
+
+  <% if (errors) { %>
+    <div class="error-message"><%= errors %></div>
+  <% } %>
+
+  <p>You're logged in.</p>
+</main>

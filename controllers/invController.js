@@ -146,12 +146,30 @@ invCont.managementView = async (req, res, next) => {
 
 /* ***************************
  * Add Inventory View
- ************************** */
+ ************************** *
 invCont.addInventoryView = async (req, res) => {
   try {
     const classificationList = await buildClassificationList();
 
     res.render('inventory/addInventory', {
+      classificationList,
+      oldInput: {},
+      errors: {},
+      flashMessage: null
+    });
+  } catch (error) {
+    console.error("Error rendering add inventory view:", error);
+    res.status(500).send("Server Error");
+  }
+}*/
+
+
+invCont.addInventoryView = async (req, res) => {
+  try {
+    const classificationList = await buildClassificationList();
+
+    res.render('inventory/addInventory', {
+      title: 'Add Inventory',    // Add this line
       classificationList,
       oldInput: {},
       errors: {},

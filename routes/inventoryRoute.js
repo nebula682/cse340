@@ -16,9 +16,9 @@ router.get("/type/:classificationId", invController.buildByClassificationId);
 router.get("/", invController.managementView);
 
 // Add Classification Form
-router.get("/inv/add-classification", classificationController.addClassificationView);
+router.get("/add-classification", classificationController.addClassificationView);
 router.post(
-  "/inv/add-classification",
+  "/add-classification",
   body("classificationName")
     .trim()
     .isLength({ min: 1 })
@@ -27,9 +27,9 @@ router.post(
 );
 
 // Add Inventory Form
-router.get("/inv/add-inventory", invController.addInventoryView);
+router.get("/add-inventory", invController.addInventoryView);
 router.post(
-  "/inv/add-inventory",
+  "/add-inventory",
   [
     body("inv_make").notEmpty().withMessage("Make is required"),
     body("inv_model").notEmpty().withMessage("Model is required"),

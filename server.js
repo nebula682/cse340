@@ -16,6 +16,7 @@ const utilities = require('./utilities');  // Adjust path if needed
 const expressLayouts = require("express-ejs-layouts")
 const env = require("dotenv").config()
 const app = express()
+app.get('/favicon.ico', (req, res) => res.status(204).end());
 const path = require('path');
 const staticMiddleware = require("./routes/static")
 const baseController = require("./controllers/baseController")
@@ -27,6 +28,8 @@ const session = require("express-session")
 const pool = require('./database/')
 
 const bodyParser = require("body-parser")
+
+const cookieParser = require("cookie-parser")
 
 
 
@@ -66,6 +69,11 @@ app.use(function(req, res, next){
 
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: true })) // for parsing application/x-www-form-urlencoded
+
+app.use(cookieParser())
+
+
+app.use(utilities.checkJWTToken)
 
 
 
