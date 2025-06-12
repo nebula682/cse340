@@ -33,7 +33,7 @@ Util.getNav = async function (req, res, next) {
 
 /* **************************************
 * Build the classification view HTML
-* ************************************ */
+* ************************************ *
 Util.buildClassificationGrid = async function(data){
   let grid
   if(data.length > 0){
@@ -63,7 +63,53 @@ Util.buildClassificationGrid = async function(data){
     grid += '<p class="notice">Sorry, no matching vehicles could be found.</p>'
   }
   return grid
+}*/
+
+
+
+Util.buildClassificationGrid = async function (data) {
+  let grid
+
+  // ✅ Ensure data is an array
+  if (Array.isArray(data) && data.length > 0) {
+    grid = '<ul id="inv-display">'
+    data.forEach(vehicle => {
+      grid += `<li>
+        <a href="../../inv/detail/${vehicle.inv_id}" title="View ${vehicle.inv_make} ${vehicle.inv_model} details">
+          <img src="${vehicle.inv_thumbnail}" alt="Image of ${vehicle.inv_make} ${vehicle.inv_model} on CSE Motors" />
+        </a>
+        <div class="namePrice">
+          <hr />
+          <h2>
+            <a href="../../inv/detail/${vehicle.inv_id}" title="View ${vehicle.inv_make} ${vehicle.inv_model} details">
+              ${vehicle.inv_make} ${vehicle.inv_model}
+            </a>
+          </h2>
+          <span>$${new Intl.NumberFormat('en-US').format(vehicle.inv_price)}</span>
+        </div>
+      </li>`
+    })
+    grid += '</ul>'
+  } else {
+    
+    grid = '<p class="notice">Sorry, no matching vehicles could be found.</p>'
+  }
+
+  return grid
 }
+
+
+Util.buildClassificationList = async function (classification_id = null) {
+  let data = await invModel.getClassifications()
+  let list = '<select name="classification_id" id="classificationList" required>'
+  list += "<option value=''>Choose a Classification</option>"
+  data.rows.forEach((row) => {
+    list += `<option value="${row.classification_id}"${classification_id == row.classification_id ? " selected" : ""}>${row.classification_name}</option>`
+  })
+  list += "</select>"
+  return list
+}
+
 
 
 
@@ -139,10 +185,10 @@ Util.checkJWTToken = (req, res, next) => {
    process.env.ACCESS_TOKEN_SECRET,
    function (err, accountData) {
     if (err) {
-     req.flash("Please log in")
-     res.clearCookie("jwt")
-     return res.redirect("/account/login")
-    }
+  req.flash("notice", "Please log in")  
+  res.clearCookie("jwt")
+  return res.redirect("/account/login")
+}
     res.locals.accountData = accountData
     res.locals.loggedin = 1
     next()

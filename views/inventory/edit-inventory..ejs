@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Edit Inventory Item</title>
+  <script src="/js/formValidation.js" defer></script>
+  <link rel="stylesheet" href="/css/styles.css" />
+</head>
+<body>
+  <h1>Edit Inventory Item</h1>
+
+  <% if (flashMessage) { %>
+    <p class="flash"><%= flashMessage %></p>
+  <% } %>
+
+  <form action="/inv/update" method="POST" onsubmit="return validateForm()">
+  <input type="hidden" name="inv_id" value="<%= inv_id %>" />
+
+  <label for="inv_make">Make:</label>
+  <input type="text" id="inv_make" name="inv_make" value="<%= inv_make || '' %>" required />
+  <span class="error"><%= errors.inv_make || '' %></span><br>
+
+  <label for="inv_model">Model:</label>
+  <input type="text" id="inv_model" name="inv_model" value="<%= inv_model || '' %>" required />
+  <span class="error"><%= errors.inv_model || '' %></span><br>
+
+  <label for="inv_year">Year:</label>
+  <input type="number" id="inv_year" name="inv_year" value="<%= inv_year || '' %>" min="1900" max="2099" required />
+  <span class="error"><%= errors.inv_year || '' %></span><br>
+
+  <label for="inv_description">Description:</label>
+  <textarea id="inv_description" name="inv_description" required><%= inv_description || '' %></textarea>
+  <span class="error"><%= errors.inv_description || '' %></span><br>
+
+  <label for="inv_image">Image Path:</label>
+  <input type="text" id="inv_image" name="inv_image" value="<%= inv_image || '' %>" required />
+  <span class="error"><%= errors.inv_image || '' %></span><br>
+
+  <label for="inv_thumbnail">Thumbnail Path:</label>
+  <input type="text" id="inv_thumbnail" name="inv_thumbnail" value="<%= inv_thumbnail || '' %>" required />
+  <span class="error"><%= errors.inv_thumbnail || '' %></span><br>
+
+  <label for="inv_price">Price:</label>
+  <input type="number" id="inv_price" name="inv_price" step="0.01" value="<%= inv_price || '' %>" required />
+  <span class="error"><%= errors.inv_price || '' %></span><br>
+
+  <label for="inv_miles">Miles:</label>
+  <input type="number" id="inv_miles" name="inv_miles" value="<%= inv_miles || '' %>" required />
+  <span class="error"><%= errors.inv_miles || '' %></span><br>
+
+  <label for="inv_color">Color:</label>
+  <input type="text" id="inv_color" name="inv_color" value="<%= inv_color || '' %>" required />
+  <span class="error"><%= errors.inv_color || '' %></span><br>
+
+  <label for="classification_id">Classification:</label>
+  <%= classificationSelect %>
+  <span class="error"><%= errors.classification_id || '' %></span><br>
+
+  <button type="submit">Update Vehicle</button>
+</form>
+
+  <a href="/inv">Back to Management</a>
+</body>
+</html>

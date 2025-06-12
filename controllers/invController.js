@@ -130,12 +130,15 @@ invCont.managementView = (req, res) => {
 invCont.managementView = async (req, res, next) => {
   try {
     const nav = await utilities.getNav()
+
+     const classificationSelect = await utilities.buildClassificationList()
     const flashMessage = req.session.flashMessage || null
     req.session.flashMessage = null
 
     res.render('inventory/management', {
       title: "Inventory Management",
       nav,
+      classificationSelect, 
       flashMessage
     })
   } catch (err) {
@@ -253,6 +256,75 @@ const showVehicleDetails = async (req, res, next) => {
 // *** CHANGE STARTS HERE ***
 // Add showVehicleDetails function into invCont object
 invCont.showVehicleDetails = showVehicleDetails;
+
+/* ***************************
+ *  Return Inventory by Classification As JSON
+ * ************************** */
+invCont.getInventoryJSON = async (req, res, next) => {
+  const classification_id = parseInt(req.params.classification_id)
+  const invData = await invModel.getInventoryByClassificationId(classification_id)
+  if (invData[0].inv_id) {
+    return res.json(invData)
+  } else {
+    next(new Error("No data returned"))
+  }
+}
+
+
+
+
+
+// Add this to your invController.js
+const inventoryModel = require('../models/inventoryModel');
+//const buildClassificationList = require('../utilities/buildClassificationList');//
+
+
+
+
+
+
+
+/* ***************************
+ *  Build edit inventory view
+ * ************************** */
+invCont.editInventoryView = async function (req, res, next) {
+  const inv_id = parseInt(req.params.inventory_id) // store the inventory_id
+
+  let nav = await utilities.getNav() // nav bar
+  const itemData = await invModel.getInventoryById(inv_id) // fetch item info
+  const classificationSelect = await utilities.buildClassificationList(itemData.classification_id) // dropdown
+
+  const itemName = `${itemData.inv_make} ${itemData.inv_model}` // make + model
+
+  res.render("./inventory/edit-inventory", {
+    title: "Edit " + itemName,
+    nav,
+    classificationSelect: classificationSelect,
+    errors: null,
+    inv_id: itemData.inv_id,
+    inv_make: itemData.inv_make,
+    inv_model: itemData.inv_model,
+    inv_year: itemData.inv_year,
+    inv_description: itemData.inv_description,
+    inv_image: itemData.inv_image,
+    inv_thumbnail: itemData.inv_thumbnail,
+    inv_price: itemData.inv_price,
+    inv_miles: itemData.inv_miles,
+    inv_color: itemData.inv_color,
+    classification_id: itemData.classification_id
+  })
+}
+
+
+
+
+
+
+
+
+
+
+
 
 // Export the combined invCont object with all functions
 module.exports = invCont;

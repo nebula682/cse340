@@ -133,101 +133,75 @@ validate.loginRules = () => {
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+const updateRules = () => {
+  return [
+    body("account_firstname").trim().notEmpty().withMessage("Please provide a first name."),
+    body("account_lastname").trim().notEmpty().withMessage("Please provide a last name."),
+    body("account_email").trim().isEmail().withMessage("A valid email is required.")
+  ]
+}
+
+const passwordRules = () => {
+  return [
+    body("account_password")
+      .trim()
+      .isLength({ min: 12 }).withMessage("Password must be at least 12 characters long")
+      .matches(/[0-9]/).withMessage("Must contain a number")
+      .matches(/[A-Z]/).withMessage("Must contain an uppercase letter")
+      .matches(/[^A-Za-z0-9]/).withMessage("Must contain a special character")
+  ]
+}
+
+
+
+
+validate.checkUpdateData = async (req, res, next) => {
+  const { account_firstname, account_lastname, account_email } = req.body
+  let errors = validationResult(req)
+  if (!errors.isEmpty()) {
+    let nav = await utilities.getNav()
+    res.render("account/update", {
+      errors,
+      title: "Edit Account",
+      nav,
+      account_firstname,
+      account_lastname,
+      account_email,
+    })
+    return
+  }
+  next()
+}
+
+
+
+
+
+validate.checkPasswordData = async (req, res, next) => {
+  const { account_password } = req.body
+  let errors = validationResult(req)
+  if (!errors.isEmpty()) {
+    let nav = await utilities.getNav()
+    res.render("account/update-password", {
+      errors,
+      title: "Change Password",
+      nav,
+    })
+    return
+  }
+  next()
+}
+
+
+
+
+validate.updateRules = updateRules
+validate.passwordRules = passwordRules
+validate.checkUpdateData = validate.checkUpdateData
+validate.checkPasswordData = validate.checkPasswordData
 
 module.exports = validate
+
+
+
+

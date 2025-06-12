@@ -97,16 +97,17 @@ async function accountLogin(req, res) {
   try {
     if (await bcrypt.compare(account_password, accountData.account_password)) {
       delete accountData.account_password
-      const accessToken = jwt.sign(accountData, process.env.ACCESS_TOKEN_SECRET, { expiresIn: 3600 * 1000 })
+      const accessToken = jwt.sign(accountData, process.env.ACCESS_TOKEN_SECRET, { expiresIn: "1h" })
       if(process.env.NODE_ENV === 'development') {
         res.cookie("jwt", accessToken, { httpOnly: true, maxAge: 3600 * 1000 })
       } else {
         res.cookie("jwt", accessToken, { httpOnly: true, secure: true, maxAge: 3600 * 1000 })
       }
-      return res.redirect("/account/")
+      //return res.redirect("/account/")//
+      res.redirect("/account");
     }
     else {
-      req.flash("message notice", "Please check your credentials and try again.")
+      req.flash(" notice", "Please check your credentials and try again.")
       res.status(400).render("account/login", {
         title: "Login",
         nav,
@@ -132,6 +133,108 @@ async function buildAccountManagement(req, res) {
 
 
 
+//const accountModel = require("../models/accountModel")//
+const bcrypt = require("bcryptjs")
+
+/*async function buildAccountManagement(req, res) {
+  const { account_firstname, account_type account_id } = res.locals.accountData
+  res.render("account/management", {
+    title: "Account Management",
+    account_firstname,
+    account_type,
+  })
+}*/
+
+function buildAccountManagement(req, res, next) {
+const { account_firstname, account_type, account_id } = res.locals.accountData
+res.render("account/management", {
+  title: "Account Management",
+  account_firstname,
+  account_type,
+  account_id,
+})
+}
+
+async function buildAccountUpdateView(req, res) {
+  const account_id = req.params.id
+  const data = await accountModel.getAccountById(account_id)
+  res.render("account/update", {
+    title: "Update Account",
+    errors: null,
+    account: data,
+  })
+}
+
+/*async function updateAccount(req, res) {
+  const { account_firstname, account_lastname, account_email, account_id } = req.body
+  const updateResult = await accountModel.updateAccount(account_firstname, account_lastname, account_email, account_id)
+  if (updateResult) {
+    req.flash("notice", "Account updated.")
+    return res.redirect("/account/manage")
+  }
+  req.flash("notice", "Update failed.")
+  res.redirect(`/account/update/${account_id}`)
+}*/
+
+
+
+/*async function updateAccount(req, res, next) {
+const existing = await accountModel.getAccountByEmail(account_email)
+if (existing && existing.account_id != account_id) {
+  req.flash("notice", "That email is already in use.")
+  return res.redirect(`/account/update/${account_id}`)
+}
+}*/
+
+async function updateAccount(req, res) {
+  const { account_firstname, account_lastname, account_email, account_id } = req.body
+
+  // Check if email already exists
+  const existing = await accountModel.getAccountByEmail(account_email)
+  if (existing && existing.account_id != account_id) {
+    req.flash("notice", "That email is already in use.")
+    return res.redirect(`/account/update/${account_id}`)
+  }
+
+  const updateResult = await accountModel.updateAccount(account_firstname, account_lastname, account_email, account_id)
+  if (updateResult) {
+    req.flash("notice", "Account updated.")
+    return res.redirect("/account")
+  } else {
+    req.flash("notice", "Update failed.")
+    return res.redirect(`/account/update/${account_id}`)
+  }
+}
+
+
+
+
+
+
+
+
+async function updatePassword(req, res) {
+  const { account_password, account_id } = req.body
+  try {
+    const hashedPassword = await bcrypt.hash(account_password, 10)
+    const result = await accountModel.updatePassword(hashedPassword, account_id)
+    if (result) {
+      req.flash("notice", "Password updated.")
+      return res.redirect("/account/manage")
+    }
+  } catch (err) {
+    req.flash("notice", "Password update failed.")
+  }
+  res.redirect(`/account/update/${account_id}`)
+}
+
+
+// Logout controller
+function logout(req, res) {
+  res.clearCookie("jwt")
+  req.flash("notice", "You have successfully logged out.")
+  res.redirect("/account/login")
+}
 
 
 
@@ -145,4 +248,13 @@ async function buildAccountManagement(req, res) {
 
 
 
-module.exports = { buildLogin, buildRegister,registerAccount, accountLogin, buildAccountManagement }
+
+
+
+
+
+
+module.exports = { buildLogin, buildRegister,registerAccount, accountLogin, buildAccountManagement,
+  buildAccountUpdateView,
+  updateAccount,
+  updatePassword,logout }
